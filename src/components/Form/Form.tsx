@@ -3,29 +3,29 @@ import styles from './Form.module.css';
 import { ChangeEvent, FormEvent, useState } from "react";
 import type { SearchType } from "../../types/Index";
 import Alert from "../Alert/Alert";
+
 type FormProps = {
 
-    fetchWeather:(search: SearchType) => Promise<void>
-    
+    fetchWeather: (search: SearchType) => Promise<void>
+
 }
 
 export default function Form({ fetchWeather }: FormProps) {
 
 
-    const [search, setsearch] = useState<SearchType>({
+
+    const [search, setSearch] = useState<SearchType>({
         city: '',
         country: ''
-
-
-    });
+    })
+    const [alert, setAlert] = useState('');
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-        setsearch({
+        setSearch({
             ...search,
             [e.target.name]: e.target.value
         })
-
     }
-    const [alert, setAlert] = useState('');
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -33,18 +33,15 @@ export default function Form({ fetchWeather }: FormProps) {
 
             setAlert('Todos los campos son obligatorios');
             return;
-
-
         }
+
+        fetchWeather(search);
     }
-    fetchWeather(search);
-
-
 
     return (
 
-
-        <form className={styles.form}
+        <form
+            className={styles.form}
             onSubmit={handleSubmit}
         >
             {alert && <Alert>{alert}</Alert>}
@@ -53,6 +50,7 @@ export default function Form({ fetchWeather }: FormProps) {
                 <input
                     id="city"
                     type="text"
+                    name="city"
                     placeholder="Ciudad"
                     value={search.city}
                     onChange={handleChange}
@@ -63,9 +61,11 @@ export default function Form({ fetchWeather }: FormProps) {
                 <label htmlFor="country">Pais:</label>
                 <select
                     id="country"
-                    value={search.country}
                     name="country"
+                    value={search.country}
                     onChange={handleChange}
+
+
                 >
 
                     <option value="">-- Seleccione un Pais ---</option>
