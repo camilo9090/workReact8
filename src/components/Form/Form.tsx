@@ -6,7 +6,8 @@ import Alert from "../Alert/Alert";
 
 type FormProps = {
 
-    fetchWeather: (search: SearchType) => Promise<void>
+    fetchWeather: (search: SearchType) => Promise<void>,
+   
 
 }
 

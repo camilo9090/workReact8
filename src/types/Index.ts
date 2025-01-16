@@ -9,12 +9,13 @@ export type CountryType = {
     name: string;
 }
 
-export type Weather = {
-    name: string;
-    main: {
+ //object
 
-        temp: number;
-        temp_max: number;
-        temp_min: number;
+ export type Weather = {
+    name: string
+    main: {
+        temp : number
+        temp_max :  number
+        temp_min : number
     }
-}; //object
+}
